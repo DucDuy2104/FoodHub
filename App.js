@@ -1,11 +1,14 @@
-import { View, Text } from 'react-native'
+import { View, Text, SafeAreaView } from 'react-native'
 import React from 'react'
+import SignUpScreen from './src/screens/SignUpScreen'
+import LoginScreen from './src/screens/LoginScreen'
 
 const App = () => {
   return (
-    <View>
-      <Text>App</Text>
-    </View>
+    <SafeAreaView style={{flex: 1}}>
+      <SignUpScreen/>
+      {/* <LoginScreen/> */}
+    </SafeAreaView>
   )
 }
 
