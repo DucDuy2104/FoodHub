@@ -5,7 +5,7 @@ const Welcome = () => {
   return (
     <View style={styles.container}>
         <View>
-            <Image source={require('../assets/img/logoWellcome.png')} />
+            <Image source={require('../../assets/img/logoWellcome.png')} />
         </View>
     </View>
   )

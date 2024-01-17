@@ -4,7 +4,7 @@ import React from 'react'
 const WelcomeToFood = () => {
   return (
     <View style={styles.container}>
-      <Image style={{ width: '103%', height: '100%' }} source={require('../assets/img/Nhanne.png')} />
+      <Image style={{ width: '103%', height: '100%' }} source={require('../../assets/img/Nhanne.png')} />
       <View style={styles.position}>
         <Text style={styles.Welcome}>Welcome to</Text>
         <Text style={styles.Foodhub}>FoodHub</Text>
@@ -18,11 +18,11 @@ const WelcomeToFood = () => {
         </View>
         <View style={styles.suwContainer}>
           <TouchableOpacity style={styles.suwItem}>
-            <Image style={{ width: 28, height: 28 }} source={require('../assets/img/facebook.png')} />
+            <Image style={{ width: 28, height: 28 }} source={require('../../assets/img/facebook.png')} />
             <Text style={{ marginLeft: 10, color: "black", fontSize: 13, fontWeight: '400' }}>FACEBOOK</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.suwItem}>
-            <Image style={{ width: 28, height: 28 }} source={require('../assets/img/ggicon.png')} />
+            <Image style={{ width: 28, height: 28 }} source={require('../../assets/img/ggicon.png')} />
             <Text style={{ marginLeft: 10, color: "black", fontSize: 13, fontWeight: '400' }}>GOOGLE</Text>
           </TouchableOpacity>
         </View>

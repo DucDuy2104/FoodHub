@@ -1,7 +1,7 @@
 import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import signStyles from '../styles/SignStyles'
-import colors from '../components/Colors'
+import signStyles from '../../styles/SignStyles'
+import colors from '../../components/Colors'
 
 const LoginScreen = () => {
     const [emaitFocus, setEmailF] = useState(false)
@@ -10,11 +10,11 @@ const LoginScreen = () => {
     
     return (
         <View style={signStyles.container}>
-            <Image style={signStyles.imgBg1} source={require('../assets/img/img1.png')} />
-            <Image style={signStyles.imgBg1} source={require('../assets/img/img2.png')} />
-            <Image style={signStyles.imgBg3} source={require('../assets/img/img3.png')} />
+            <Image style={signStyles.imgBg1} source={require('../../assets/img/img1.png')} />
+            <Image style={signStyles.imgBg1} source={require('../../assets/img/img2.png')} />
+            <Image style={signStyles.imgBg3} source={require('../../assets/img/img3.png')} />
             <TouchableOpacity style={signStyles.backBtn}>
-                <Image source={require('../assets/img/backbtn.png')}/>
+                <Image source={require('../../assets/img/backbtn.png')}/>
             </TouchableOpacity>
             <Text style={[signStyles.signTxt, {marginTop: 150}]}>Login</Text>
             <Text style={signStyles.subText}>E-mail</Text>
@@ -22,7 +22,7 @@ const LoginScreen = () => {
             <Text style={signStyles.subText}>Password</Text>
             <TextInput onFocus={()=>setPassFocus(true)} onBlur={()=>setPassFocus(false)} style={[signStyles.input, {borderColor: passFocus? colors.primary: 'gray'}]} placeholder='Password' />
             <TouchableOpacity>
-                <Image style={signStyles.eye} source={require('../assets/img/eye.png')} />
+                <Image style={signStyles.eye} source={require('../../assets/img/eye.png')} />
             </TouchableOpacity>
 
             <Text style={{color:colors.primary}}>Forgot Password?</Text>
@@ -42,11 +42,11 @@ const LoginScreen = () => {
             </View>
             <View style={signStyles.suwContainer}>
                 <TouchableOpacity style={signStyles.suwItem}>
-                    <Image style={{width: 28, height: 28}} source={require('../assets/img/facebook.png')}/>
+                    <Image style={{width: 28, height: 28}} source={require('../../assets/img/facebook.png')}/>
                     <Text style={{marginLeft: 10,color:"black", fontSize: 13, fontWeight: '400'}}>FACEBOOK</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={signStyles.suwItem}>
-                    <Image style={{width: 28, height: 28}} source={require('../assets/img/ggicon.png')}/>
+                    <Image style={{width: 28, height: 28}} source={require('../../assets/img/ggicon.png')}/>
                     <Text style={{marginLeft: 10,color:"black", fontSize: 13, fontWeight: '400'}}>FACEBOOK</Text>
                 </TouchableOpacity>
             </View>

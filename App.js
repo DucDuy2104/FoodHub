@@ -1,15 +1,17 @@
 import { View, Text, SafeAreaView } from 'react-native'
 import React from 'react'
-import SignUpScreen from './src/screens/SignUpScreen'
-import LoginScreen from './src/screens/LoginScreen'
-import Welcome from './src/screens/Welcome'
+
+import Welcome from './src/screens/Welcome/Welcome'
+import WelcomeToFood from './src/screens/Welcome/WelcomeToFood'
+import LoginScreen from './src/screens/Login/LoginScreen'
+import SignUpScreen from './src/screens/Login/SignUpScreen'
 const App = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
-      {/* <SignUpScreen/> */}
+      {/* <Welcome/> */}
+      {/* <WelcomeToFood/> */}
       {/* <LoginScreen/> */}
-      <Welcome/>
-      
+      {/* <SignUpScreen/> */}
     </SafeAreaView>
   )
 }
