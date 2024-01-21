@@ -5,6 +5,7 @@ import Welcome from './src/screens/Welcome/Welcome'
 import WelcomeToFood from './src/screens/Welcome/WelcomeToFood'
 import LoginScreen from './src/screens/Login/LoginScreen'
 import SignUpScreen from './src/screens/Login/SignUpScreen'
+import Profiles from './src/screens/Page/Profiles'
 const App = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -12,6 +13,7 @@ const App = () => {
       {/* <WelcomeToFood/> */}
       {/* <LoginScreen/> */}
       {/* <SignUpScreen/> */}
+      <Profiles/>
     </SafeAreaView>
   )
 }
