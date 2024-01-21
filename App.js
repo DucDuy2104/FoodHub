@@ -6,8 +6,11 @@ import WelcomeToFood from './src/screens/Welcome/WelcomeToFood'
 import LoginScreen from './src/screens/Login/LoginScreen'
 import SignUpScreen from './src/screens/Login/SignUpScreen'
 import Profiles from './src/screens/Page/Profiles'
-import Card from './src/screens/Page/Card'
-import ItemCard from './src/components/ItemCard'
+import Card from './src/screens/Page/Cart'
+import ItemCard from './src/components/ItemCart'
+import MyOrder from './src/screens/Page/MyOrder'
+import ItemOrder1 from './src/components/ItemOrder1'
+import ItemOrder2 from './src/components/ItemOrder2'
 const App = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -16,8 +19,11 @@ const App = () => {
       {/* <LoginScreen/> */}
       {/* <SignUpScreen/> */}
       {/* <Profiles/> */}
-      <Card/>
-      {/* <ItemCard/> */}
+      {/* <Cart/> */}
+      {/* <ItemCart/> */}
+      <MyOrder/>
+      {/* <ItemOrder1/> */}
+      {/* <ItemOrder2/> */}
     </SafeAreaView>
   )
 }

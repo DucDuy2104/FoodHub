@@ -1,7 +1,8 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const ItemCard = (props) => {
+const ItemCart
+ = (props) => {
 
   const {dataSP} = props;
 
@@ -32,7 +33,8 @@ const ItemCard = (props) => {
   )
 }
 
-export default ItemCard
+export default ItemCart
+
 
 const styles = StyleSheet.create({
   container: {

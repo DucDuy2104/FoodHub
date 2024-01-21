@@ -1,13 +1,13 @@
 import { FlatList, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
-import ItemCard from '../../components/ItemCard'
+import ItemCard from '../../components/ItemCart'
 
-const Card = () => {
+const Cart = () => {
     return (
         <View style={styles.container}>
             <View style={styles.view1}>
                 <Image style={styles.img1} source={require('../../assets/img/backbtn.png')} />
-                <Text style={[styles.text1, styles.textCenter, styles.black]}>Card</Text>
+                <Text style={[styles.text1, styles.textCenter, styles.black]}>Cart</Text>
             </View>
 
             <FlatList style={styles.flat}
@@ -51,7 +51,7 @@ const Card = () => {
     )
 }
 
-export default Card
+export default Cart
 
 const styles = StyleSheet.create({
     container: {
