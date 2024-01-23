@@ -20,7 +20,8 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{flex: 1}}>
+      <Food_Detail/>
       {/* <Welcome/> */}
       {/* <WelcomeToFood/> */}
       {/* <LoginScreen/> */}
@@ -29,6 +30,7 @@ const App = () => {
       {/* <Cart/> */}
       {/* <ItemCart/> */}
       {/* <MyOrder /> */}
+      {/* <MyOrder/> */}
       {/* <ItemOrder1/> */}
       {/* <ItemOrder2/> */}
       {/* <HomeDropDown/> */}
