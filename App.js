@@ -21,7 +21,6 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Food_Detail/>
       {/* <Welcome/> */}
       {/* <WelcomeToFood/> */}
       {/* <LoginScreen/> */}
@@ -30,21 +29,20 @@ const App = () => {
       {/* <Cart/> */}
       {/* <ItemCart/> */}
       {/* <MyOrder /> */}
-      {/* <MyOrder/> */}
       {/* <ItemOrder1/> */}
       {/* <ItemOrder2/> */}
       {/* <HomeDropDown/> */}
-      <HomeScreens/>
+      {/* <HomeScreens/> */}
 
-      {/* <NavigationContainer>
-        <Stack.Navigator initialRouteName='WelcomeToFood'>
-          <Stack.Screen name='WelCome' component={Welcome} />
-          <Stack.Screen name='WelcomeToFood' component={WelcomeToFood} />
-          <Stack.Screen name='LoginScreen' component={LoginScreen} />
-          <Stack.Screen name='SignUpScreen' component={SignUpScreen} />
-          <Stack.Screen name='HomeScreens' component={HomeScreens} />
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='HomeScreens'>
+          <Stack.Screen options={{ headerShown: false }} name='WelCome' component={Welcome} />
+          <Stack.Screen options={{ headerShown: false }} name='WelcomeToFood' component={WelcomeToFood} />
+          <Stack.Screen options={{ headerShown: false }} name='LoginScreen' component={LoginScreen} />
+          <Stack.Screen options={{ headerShown: false }} name='SignUpScreen' component={SignUpScreen} />
+          <Stack.Screen options={{ headerShown: false }} name='HomeScreens' component={HomeScreens} />
         </Stack.Navigator>
-      </NavigationContainer> */}
+      </NavigationContainer>
 
     </SafeAreaView>
   )
