@@ -1,7 +1,10 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
-const WelcomeToFood = () => {
+const WelcomeToFood = (props) => {
+
+  const {navigation} = props;
+
   return (
     <View style={styles.container}>
       <Image style={{ width: '103%', height: '100%' }} source={require('../../assets/img/Nhanne.png')} />
@@ -10,7 +13,7 @@ const WelcomeToFood = () => {
         <Text style={styles.Foodhub}>FoodHub</Text>
         <Text style={styles.Textnho}>Your favorite foods delivered fast at your door</Text>
       </View>
-      <View style={{position: 'absolute', top: '557'}}>
+      <View style={{ position: 'absolute', top: '557' }}>
         <View style={styles.signSec}>
           <View style={styles.line} />
           <Text style={styles.suwTxt}>Sign up width</Text>
@@ -26,15 +29,18 @@ const WelcomeToFood = () => {
             <Text style={{ marginLeft: 10, color: "black", fontSize: 13, fontWeight: '400' }}>GOOGLE</Text>
           </TouchableOpacity>
         </View>
-        <View style={{alignItems:'center'}}>
-        <TouchableOpacity style={styles.suwbutton}>
-            <Text style={{color: "white", fontSize: 13, fontWeight: '400', lineHeight:17, marginTop: -3 }}>Start with email or phone</Text>
+        <View style={{ alignItems: 'center' }}>
+          <TouchableOpacity style={styles.suwbutton}>
+            <Text style={{ color: "white", fontSize: 13, fontWeight: '400', lineHeight: 17, marginTop: -3 }}
+              onPress={() => navigation.navigate('LoginScreen')}>
+              Start with email or phone</Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.txtHave}>
-                Already have an account? {' '}
-                <Text style={{textDecorationLine: 'underline'}}>Sign in</Text>
-            </Text>
+          Already have an account? {' '}
+          <Text style={{ textDecorationLine: 'underline' }} onPress={() => navigation.navigate('LoginScreen')}>
+            Sign in</Text>
+        </Text>
       </View>
 
     </View>
@@ -114,12 +120,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 10
   },
-  suwbutton:{
+  suwbutton: {
     width: 315,
     height: 54,
     marginTop: 30,
     fontSize: 17,
-    color:'#ffffff',
+    color: '#ffffff',
     lineHeight: 17,
     borderRadius: 29,
     padding: 20,
@@ -127,15 +133,15 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 18.587, height: 18.587 },
     shadowOpacity: 0.25,
     shadowRadius: 37.174,
-    alignItems:'center',
+    alignItems: 'center',
     backgroundColor: '#888'
-  },  
+  },
   txtHave: {
     fontSize: 14,
     fontWeight: '400',
-    color:'white',
+    color: 'white',
     marginTop: 20,
     width: '100%',
     textAlign: 'center'
-},
+  },
 })

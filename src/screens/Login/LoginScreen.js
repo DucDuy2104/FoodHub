@@ -3,10 +3,11 @@ import React, { useState } from 'react'
 import signStyles from '../../styles/SignStyles'
 import colors from '../../components/Colors'
 
-const LoginScreen = () => {
+const LoginScreen = (props) => {
     const [emaitFocus, setEmailF] = useState(false)
     const [passFocus, setPassFocus]= useState(false)
 
+    const {navigation} = props;
     
     return (
         <View style={signStyles.container}>
@@ -33,7 +34,7 @@ const LoginScreen = () => {
 
             <Text style={signStyles.txtHave}>
                 Don't have account? {' '}
-                <Text style={{color: colors.primary}}>Sign Up</Text>
+                <Text style={{color: colors.primary}} onPress={() => navigation.navigate('SignUpScreen')}>Sign Up</Text>
             </Text>
             <View style={signStyles.signSec}>
                 <View style={signStyles.line}/>

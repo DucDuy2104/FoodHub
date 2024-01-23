@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView } from 'react-native'
+import { View, Text, SafeAreaView, InputAccessoryView } from 'react-native'
 import React from 'react'
 
 import Welcome from './src/screens/Welcome/Welcome'
@@ -11,9 +11,16 @@ import ItemCard from './src/components/ItemCart'
 import MyOrder from './src/screens/Page/MyOrder'
 import ItemOrder1 from './src/components/ItemOrder1'
 import ItemOrder2 from './src/components/ItemOrder2'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native'
+import HomeScreens from './src/screens/Page/HomeScreens'
+import HomeDropDown from './src/components/HomeDropDown'
+
+const Stack = createNativeStackNavigator();
+
 const App = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       {/* <Welcome/> */}
       {/* <WelcomeToFood/> */}
       {/* <LoginScreen/> */}
@@ -21,9 +28,22 @@ const App = () => {
       {/* <Profiles/> */}
       {/* <Cart/> */}
       {/* <ItemCart/> */}
-      <MyOrder/>
+      {/* <MyOrder /> */}
       {/* <ItemOrder1/> */}
       {/* <ItemOrder2/> */}
+      {/* <HomeDropDown/> */}
+      <HomeScreens/>
+
+      {/* <NavigationContainer>
+        <Stack.Navigator initialRouteName='WelcomeToFood'>
+          <Stack.Screen name='WelCome' component={Welcome} />
+          <Stack.Screen name='WelcomeToFood' component={WelcomeToFood} />
+          <Stack.Screen name='LoginScreen' component={LoginScreen} />
+          <Stack.Screen name='SignUpScreen' component={SignUpScreen} />
+          <Stack.Screen name='HomeScreens' component={HomeScreens} />
+        </Stack.Navigator>
+      </NavigationContainer> */}
+
     </SafeAreaView>
   )
 }

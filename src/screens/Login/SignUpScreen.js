@@ -3,10 +3,18 @@ import React, { useState } from 'react'
 import signStyles from '../../styles/SignStyles'
 import colors from '../../components/Colors'
 
-const SignUpScreen = () => {
+const SignUpScreen = (props) => {
     const [emaitFocus, setEmailF] = useState(false)
     const [passFocus, setPassFocus]= useState(false)
     const [nameFocus, setNameFocus] = useState(false)
+
+    const {navigation} = props;
+
+    const click = () => {
+        // navigation.navigate('LoginScreen');
+        //tro ve trang truoc do 
+        // navigation.goback();
+    }
 
     return (
         <View style={signStyles.container}>
@@ -30,7 +38,7 @@ const SignUpScreen = () => {
 
             <Text style={signStyles.txtHave}>
                 Already have an account? {' '}
-                <Text style={{color: colors.primary}}>Login</Text>
+                <Text style={{color: colors.primary}} onPress={click}>Login</Text>
             </Text>
             <View style={signStyles.signSec}>
                 <View style={signStyles.line}/>
