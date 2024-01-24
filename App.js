@@ -15,6 +15,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import HomeScreens from './src/screens/Page/HomeScreens'
 import HomeDropDown from './src/components/HomeDropDown'
+import ItemHome1 from './src/components/ItemHome1'
+import ItemHome2 from './src/components/ItemHome2'
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +43,7 @@ const App = () => {
           <Stack.Screen options={{ headerShown: false }} name='LoginScreen' component={LoginScreen} />
           <Stack.Screen options={{ headerShown: false }} name='SignUpScreen' component={SignUpScreen} />
           <Stack.Screen options={{ headerShown: false }} name='HomeScreens' component={HomeScreens} />
+          <Stack.Screen options={{ headerShown: false }} name='ItemHome2' component={ItemHome2} />
         </Stack.Navigator>
       </NavigationContainer>
 
