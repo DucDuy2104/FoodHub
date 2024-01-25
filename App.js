@@ -11,14 +11,13 @@ import ItemCard from './src/components/ItemCart'
 import MyOrder from './src/screens/Page/MyOrder'
 import ItemOrder1 from './src/components/ItemOrder1'
 import ItemOrder2 from './src/components/ItemOrder2'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import HomeScreens from './src/screens/Page/HomeScreens'
 import HomeDropDown from './src/components/HomeDropDown'
 import ItemHome1 from './src/components/ItemHome1'
 import ItemHome2 from './src/components/ItemHome2'
-
-const Stack = createNativeStackNavigator();
+import { createStackNavigator } from '@react-navigation/stack'
+const Stack = createStackNavigator()
 
 const App = () => {
   return (
