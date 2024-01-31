@@ -149,7 +149,8 @@ const styles = StyleSheet.create({
         borderColor: '#EFEFEF',
         borderRadius: 10,
         backgroundColor: '#FCFCFD',
-        paddingLeft: 10
+        paddingLeft: 10,
+        width: 280
     },
     scroll: {
         marginLeft: 10,
