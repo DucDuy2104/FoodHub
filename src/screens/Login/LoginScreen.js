@@ -35,7 +35,11 @@ const LoginScreen = (props) => {
             </TouchableOpacity>
             <Text style={[signStyles.signTxt, { marginTop: 150 }]}>Login</Text>
             <Text style={signStyles.subText}>E-mail</Text>
-            <TextInput onFocus={() => setEmailF(true)} onBlur={() => setEmailF(false)} style={[signStyles.input, { borderColor: emaitFocus ? colors.primary : 'gray' }]} placeholder='E-mail' />
+            <TextInput
+                onFocus={() => setEmailF(true)}
+                onBlur={() => setEmailF(false)}
+                style={[signStyles.input, { borderColor: emaitFocus ? colors.primary : 'gray' }]}
+                placeholder='E-mail' />
             <Text style={signStyles.subText}>Password</Text>
             <TextInput onFocus={() => setPassFocus(true)} onBlur={() => setPassFocus(false)} style={[signStyles.input, { borderColor: passFocus ? colors.primary : 'gray' }]} placeholder='Password' />
             <TouchableOpacity>

@@ -1,7 +1,14 @@
 import { Image, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+import signStyles from '../../styles/SignStyles'
+import colors from '../../components/Colors'
 
 const Profiles = () => {
+
+  const [nameFocus, setnameFocus] = useState(false);
+  const [emaitFocus, setEmailF] = useState(false)
+  const [phoneFocus, setphoneFocus] = useState(false)
+
   return (
     <View>
       <ImageBackground source={require('../../assets/img/bgprofile.png')}
@@ -26,16 +33,27 @@ const Profiles = () => {
 
         <View style={styles.view2}>
           <Text style={[styles.text3, styles.colorgray]}>Full name</Text>
-          <TextInput placeholderTextColor={'#ccc'} placeholder='Input your name'
-            style={styles.input} />
+          <TextInput
+            onFocus={() => setnameFocus(true)}
+            onBlur={() => setnameFocus(false)}
+            style={[styles.input1,
+            { borderColor: nameFocus ? '#FE724C' : '#eee' }]}
+            placeholderTextColor={'#ccc'} placeholder='Input your name'
+          />
 
           <Text style={[styles.text3, styles.colorgray]}>E-mail</Text>
           <TextInput placeholderTextColor={'#ccc'} placeholder='Input your email'
-            style={[styles.input, {borderColor: '#EEE'}]} />
+            onFocus={() => setEmailF(true)}
+            onBlur={() => setEmailF(false)}
+            style={[styles.input1,
+            { borderColor: emaitFocus ? '#FE724C' : '#eee' }]} />
 
           <Text style={[styles.text3, styles.colorgray]}>Phone Number</Text>
           <TextInput placeholderTextColor={'#ccc'} placeholder='Input your phone number'
-            style={[styles.input, {borderColor: '#EEE'}]}
+            onFocus={() => setphoneFocus(true)}
+            onBlur={() => setphoneFocus(false)}
+            style={[styles.input1,
+            { borderColor: phoneFocus ? '#FE724C' : '#eee' }]}
             keyboardType='number-pad' />
         </View>
       </View>
@@ -46,6 +64,20 @@ const Profiles = () => {
 export default Profiles
 
 const styles = StyleSheet.create({
+  input1: {
+    width: '90%',
+    height: 65,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#EEE',
+    marginHorizontal: 18,
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#111719',
+    paddingTop: 25, paddingBottom: 20,
+    paddingHorizontal: 16,
+    marginBottom: 29,
+  },
   container: {
 
   },

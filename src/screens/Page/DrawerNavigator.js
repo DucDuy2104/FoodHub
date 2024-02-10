@@ -10,12 +10,14 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator screenOptions={{
-        headerShown: false
-    }}>
-        <Drawer.Screen name='HomeScreens' component={HomeScreens}/>
-        <Drawer.Screen name='LoginScreen' component={LoginScreen}/>
-        <Drawer.Screen name='Profiles' component={Profiles}/>
+
+    <Drawer.Navigator //useLegacyImplementation={true}
+      screenOptions={{
+        // headerShown: false
+      }}>
+      <Drawer.Screen name='HomeScreens' component={HomeScreens} />
+      <Drawer.Screen name='LoginScreen' component={LoginScreen} />
+      <Drawer.Screen name='Profiles' component={Profiles} />
     </Drawer.Navigator>
   )
 }
