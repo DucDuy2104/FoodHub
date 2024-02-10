@@ -1,14 +1,22 @@
-import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { FlatList, Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 import HomeDropDown from '../../components/HomeDropDown'
 import ItemHome1 from '../../components/ItemHome1'
 import ItemHome2 from '../../components/ItemHome2'
 
-const HomeScreens = () => {
+const HomeScreens = (props) => {
+const {navigation} = props;
+
+const openDrawer = () => {
+    navigation.navigate("HomeScreens");
+}
+
     return (
         <View style={styles.container}>
             <View style={[styles.view1, styles.row]}>
-                <Image style={styles.img1} source={require('../../assets/img/home/drawer.png')} />
+                <Pressable onPress={() => openDrawer()}>
+                    <Image style={styles.img1} source={require('../../assets/img/home/drawer.png')} />
+                </Pressable>
                 <View>
                     <HomeDropDown />
                     <Text style={styles.text1}>4102 Pretty View Lane</Text>
@@ -84,7 +92,7 @@ const HomeScreens = () => {
 
                 <Text style={[styles.text5, styles.text7]}>Popular Items</Text>
                 <FlatList horizontal={true}
-                 data={data2}
+                    data={data2}
                     renderItem={({ item }) => <ItemHome2 data2={item} />}
                     keyExtractor={(item) => item.id}
                     style={[styles.flat2]} />
