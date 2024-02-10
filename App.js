@@ -36,7 +36,7 @@ const App = () => {
       {/* <HomeScreens/> */}
 
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='HomeScreens'>
+        <Stack.Navigator initialRouteName='LoginScreen'>
           <Stack.Screen options={{ headerShown: false }} name='WelCome' component={Welcome} />
           <Stack.Screen options={{ headerShown: false }} name='WelcomeToFood' component={WelcomeToFood} />
           <Stack.Screen options={{ headerShown: false }} name='LoginScreen' component={LoginScreen} />
