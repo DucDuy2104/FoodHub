@@ -5,11 +5,27 @@ import ItemHome1 from '../../components/ItemHome1'
 import ItemHome2 from '../../components/ItemHome2'
 
 const HomeScreens = (props) => {
-const {navigation} = props;
+    const { navigation } = props;
 
-const openDrawer = () => {
-    navigation.navigate("HomeScreens");
-}
+    const openDrawer = () => {
+        navigation.navigate("HomeScreens");
+    }
+
+    const logAllProducts = () => {
+        let BASE_URL = "http://192.168.1.5:3000/api/products";
+
+        fetch("http://localhost:3000/api/products").then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        }).then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log("Failed: " + err);
+        })
+    }
+
 
     return (
         <View style={styles.container}>
@@ -23,6 +39,11 @@ const openDrawer = () => {
                 </View>
                 <Image style={styles.img2} source={require('../../assets/img/home/avatarr.png')} />
             </View>
+
+            <Pressable onPress={() => logAllProducts()}>
+                <Text>Log All Products</Text>
+            </Pressable>
+
 
             <ScrollView>
                 <Text style={styles.text2}>What would you like to order</Text>
