@@ -46,6 +46,11 @@ const HomeScreens = ({navigation}) => {
                 <Image style={styles.img2} source={require('../../assets/img/home/avatarr.png')} />
             </View>
 
+            <Pressable onPress={() => logAllProducts()}>
+                <Text>Log All Products</Text>
+            </Pressable>
+
+
             <ScrollView>
                 <Text style={styles.text2}>What would you like to order</Text>
 
