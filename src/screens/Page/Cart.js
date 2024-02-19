@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     press1: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 80,
+        marginTop: 50,
         width: 248,
         height: 57,
         borderRadius: 30,
