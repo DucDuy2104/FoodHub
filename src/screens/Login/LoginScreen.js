@@ -1,10 +1,12 @@
 import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import signStyles from '../../styles/SignStyles'
 import colors from '../../components/Colors'
 import axios from 'axios'
+import { AppContext } from '../../global/AppContext'
 
 const LoginScreen = (props) => {
+    const { curUser, setCurUser } = useContext(AppContext)
     const [emaitFocus, setEmailF] = useState(false)
     const [passFocus, setPassFocus] = useState(false)
 
@@ -18,8 +20,8 @@ const LoginScreen = (props) => {
             }
             return response.json();
         }).then(data => {
-            navigation.navigate("HomeScreens");
-            console.log(data);
+            navigation.navigate("Home");
+            console.log("curUser: ",data);
         }).catch(err => {
             console.log("Failed: " + err);
         })

@@ -1,26 +1,29 @@
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
-const ItemHome2 = (props) => {
+const ItemHome2 = ({ item, onItemLick}) => {
 
-  const { data2 } = props;
+  
 
   return (
-    <View style={styles.container}>
-      <Image style={styles.img1}
-        source={{ uri: data2.anh }} />
-      <View style={[styles.row, styles.view1]}>
-        <Text style={styles.text1}><Text style={styles.text2}>$</Text>{data2.price}</Text>
-        <Image source={require('../assets/img/home/whiteheat.png')} />
+    <TouchableOpacity onPress={onItemLick}>
+      <View style={styles.container}>
+        <Image style={styles.img1}
+          source={{ uri: item.image }} />
+        <View style={[styles.row, styles.view1]}>
+          <Text style={styles.text1}><Text style={styles.text2}>$</Text>{item.price}</Text>
+          <Image source={require('../assets/img/home/whiteheat.png')} />
+        </View>
+
+        <ImageBackground style={styles.bg1} source={require('../assets/img/home/bg.png')}>
+          <Text style={styles.text3}>{item.rate} <Image source={require('../assets/img/home/start.png')} /> <Text style={styles.text4}>({item.voting}+)</Text></Text>
+        </ImageBackground>
+
+        <Text style={styles.text5}>{item.name}</Text>
+        <Text style={styles.text6}>{item.title}</Text>
       </View>
-
-      <ImageBackground style={styles.bg1} source={require('../assets/img/home/bg.png')}>
-        <Text style={styles.text3}>{data2.rate} <Image source={require('../assets/img/home/start.png')} /> <Text style={styles.text4}>(25+)</Text></Text>
-      </ImageBackground>
-
-      <Text style={styles.text5}>{data2.name}</Text>
-      <Text style={styles.text6}>{data2.title}</Text>
-    </View>
+    </TouchableOpacity>
   )
 }
 

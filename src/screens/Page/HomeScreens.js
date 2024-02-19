@@ -1,17 +1,39 @@
 import { FlatList, Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import HomeDropDown from '../../components/HomeDropDown'
 import ItemHome1 from '../../components/ItemHome1'
 import ItemHome2 from '../../components/ItemHome2'
+import AxiosInstance from '../../helper/AxiosInstance'
 
-const HomeScreens = (props) => {
-const {navigation} = props;
+const HomeScreens = ({navigation}) => {
+    const [listsp, setListSp] = useState();
 
-const openDrawer = () => {
-    navigation.navigate("HomeScreens");
-}
+    const getAllProducts = async () => {
+        try {
+            console.log('on get Pro')
+            const response = await AxiosInstance().get('/api/products');
+            if(response) {
+                console.log('response', response);
+                setListSp(response)
+            } else {
+                console.log("not ok")
+            }
+        } catch (error) {
+            console.log("lỗi cl", error.message)
+        }
+    }
 
-    return (
+    useEffect(()=> {
+        getAllProducts()
+    }, [])
+
+    const onItemLick = (item) => {
+        navigation.navigate('detail', {
+            item: item
+        })
+    }
+
+    return listsp? (
         <View style={styles.container}>
             <View style={[styles.view1, styles.row]}>
                 <Pressable onPress={() => openDrawer()}>
@@ -92,13 +114,14 @@ const openDrawer = () => {
 
                 <Text style={[styles.text5, styles.text7]}>Popular Items</Text>
                 <FlatList horizontal={true}
-                    data={data2}
-                    renderItem={({ item }) => <ItemHome2 data2={item} />}
+                    data={listsp}
+                    renderItem={({ item }) => <ItemHome2 onItemLick={()=>onItemLick(item)} item={item} />}
                     keyExtractor={(item) => item.id}
                     style={[styles.flat2]} />
             </ScrollView>
         </View>
-    )
+        
+    ) : <Text>Loading...</Text>
 }
 
 export default HomeScreens

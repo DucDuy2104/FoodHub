@@ -12,7 +12,6 @@ const MyOrder = () => {
                 <Image style={styles.img1} source={require('../../assets/img/myorders/img13.png')}/>
             </View>
 
-            <ItemOrder1 />
 
             <Text style={styles.text2}>Lasted Orders</Text>
             <FlatList style={styles.flat1} data={data}
@@ -46,10 +45,10 @@ const styles = StyleSheet.create({
         color: '#111719',
         fontSize: 18,
         fontWeight: '600',
-        marginBottom: 20
+        marginBottom: 10
     },
     flat1: {
-        marginBottom: 15
+        paddingBottom: 40
     }
 })
 

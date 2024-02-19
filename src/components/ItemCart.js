@@ -1,47 +1,52 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ItemCart
- = (props) => {
+  = (props) => {
 
-  const {dataSP} = props;
+    const { dataSP, onDelete, onAdd, onMin } = props;
+    const [count, setCount] = useState(dataSP.count)
 
-  return (
-    <View style={styles.container}>
-      <Image style={styles.img1}
-      source={{uri: dataSP.anh}}/>
+    return (
+      <View style={styles.container}>
+        <Image style={styles.img1}
+          source={{ uri: dataSP.image }} />
 
-      <View style={styles.viewText}>
-        <Text style={styles.text1}>{dataSP.ten}</Text>
-        <Text style={styles.text2}>{dataSP.mota}</Text>
-        <Text style={styles.text3}>${dataSP.gia}</Text>
-      </View>
+        <View style={styles.viewText}>
+          <Text style={styles.text1}>{dataSP.name}</Text>
+          <Text style={styles.text2}>{dataSP.title}</Text>
+          <Text style={styles.text3}>${dataSP.price}</Text>
+        </View>
 
-      <View style={styles.view3}>
-        <Image style={styles.img2} source={require('../assets/img/card/delete.png')}/>
-        <View style={styles.view2}>
-          <Pressable style={styles.press}>
-            <Text style={styles.text5}>-</Text>
-          </Pressable >
-          <Text style={styles.text4}>{dataSP.soluong}</Text>
-          <Pressable style={[styles.press,{backgroundColor: '#FE724C'}]}>
-            <Text style={styles.text6}>+</Text>
-          </Pressable>
+        <View style={styles.view3}>
+          <TouchableOpacity onPress={onDelete}>
+            <Image style={styles.img2} source={require('../assets/img/card/delete.png')} />
+          </TouchableOpacity>
+          <View style={styles.view2}>
+            <TouchableOpacity onPress={()=>{onMin(dataSP, count); setCount(pre => {if(count > 1) { return --pre } else { return pre }})}} style={styles.press}>
+              <Text style={styles.text5}>-</Text>
+            </TouchableOpacity >
+            <Text style={styles.text4}>{count}</Text>
+            <TouchableOpacity onPress={() => {onAdd(dataSP, count); setCount(pre => ++pre )}} style={[styles.press, { backgroundColor: '#FE724C' }]}>
+              <Text style={styles.text6}>+</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
-  )
-}
+    )
+  }
 
 export default ItemCart
 
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingVertical: 10
   },
   img1: {
     borderRadius: 20,
@@ -64,7 +69,7 @@ const styles = StyleSheet.create({
   text3: {
     fontSize: 16,
     color: '#FE724C',
-    fontSize: 16, 
+    fontSize: 16,
     fontWeight: '600'
   },
   img2: {

@@ -1,46 +1,90 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
 import signStyles from '../../styles/SignStyles'
+import { AppContext } from '../../global/AppContext';
 
-const Food_Detail = () => {
+const Food_Detail = ({ navigation, route }) => {
+    const [num, setNum] = useState(0);
+    const { item } = route.params
+    const { setListCart, listCart } = useContext(AppContext)
+    const onIncrePress = () => {
+        setNum(pre => ++pre)
+    }
+
+
+    console.log(listCart);
+
+    const onDescrePress = () => {
+        if(num == 0) {
+            return
+        }
+
+        setNum(pre => --pre)
+    }
+
+    const onAddToCartPress = (food) => {
+        var count = 0
+        listCart.forEach((fo, i) => {
+            console.log("onForEach...")
+            if(fo.id ==  food.id) {
+                count++;
+            }
+        });
+        if(count == 0) {
+            console.log("onAddNew...")
+            listCart.push(
+                {
+                    id: food.id,
+                    name: food.name,
+                    title: food.title,
+                    image: food.image,
+                    price: food.price,
+                    count: num
+                }
+            )
+        }
+        setListCart(listCart)
+    }
     return (
         <View style={styles.container}>
             <View>
                 <View style={styles.TitleContainer}>
-                    <Image style={styles.iconBack} source={require('../../assets/img/backbtn.png')} />
+                    <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                        <Image style={styles.iconBack} source={require('../../assets/img/backbtn.png')} />
+                    </TouchableOpacity>
                     <View>
                         <Image style={styles.ImgTym} source={require('../../assets/Food_Detail/ImgTym.png')} />
                         <Image style={styles.iconTym} source={require('../../assets/Food_Detail/iconTym.png')} />
                     </View>
                 </View>
                 <View style={styles.ViewBanhCuon}>
-                    <Image style={styles.imgbanhCuon} source={require('../../assets/Food_Detail/banhCuon.png')} />
+                    <Image style={styles.imgbanhCuon} source={{ uri: item.image }} />
                 </View>
             </View>
 
             <View>
-                <Text style={styles.Text}>Ground Beef Tacoss</Text>
+                <Text style={styles.Text}>{item.name}</Text>
             </View>
             <View style={styles.ViewSao}>
                 <Image source={require('../../assets/Food_Detail/Sao.png')} />
-                <Text style={styles.Sao}>4.5</Text>
-                <Text style={styles.Danhgia}>(30+)</Text>
+                <Text style={styles.Sao}>{item.rating}</Text>
+                <Text style={styles.Danhgia}>({item.voting}+)</Text>
                 <Text style={styles.See}>See review</Text>
             </View>
             <View style={styles.ViewPriceContainer}>
-                <View ><Text style={styles.ViewPrice}>$9.50</Text></View>
+                <View ><Text style={styles.ViewPrice}>${item.price}</Text></View>
                 <View style={styles.ViewCongTru}>
-                    <Image style={styles.ImgCong} source={require('../../assets/Food_Detail/Tru.png')} />
-                    <Text style={styles.Soluong}>02</Text>
-                    <Image style={styles.ImgTru} source={require('../../assets/Food_Detail/Cong.png')} />
+                    <Pressable onPress={onDescrePress}>
+                        <Image style={styles.ImgCong} source={require('../../assets/Food_Detail/Tru.png')} />
+                    </Pressable>
+                    <Text style={styles.Soluong}>{num}</Text>
+                    <Pressable onPress={onIncrePress}>
+                        <Image style={styles.ImgTru} source={require('../../assets/Food_Detail/Cong.png')} />
+                    </Pressable>
                 </View>
             </View>
             <Text style={styles.Text1}>
-                Brown the beef better.
-                Lean ground beef
-                – I like to use 85% lean angus. Garlic
-                – use fresh  chopped. Spices
-                – chili powder, cumin, onion powder.
+                {item.description}
             </Text>
             <View>
                 <Text style={styles.Text2}>Choice of Add On</Text>
@@ -76,7 +120,7 @@ const Food_Detail = () => {
                 </View>
             </View>
             <View style={styles.btnContainer}>
-                <TouchableOpacity style={signStyles.btnSignUp}>
+                <TouchableOpacity onPress={()=>onAddToCartPress(item)} style={signStyles.btnSignUp}>
                     <Text style={styles.text3}>Add to cart</Text>
                 </TouchableOpacity>
             </View>
@@ -122,6 +166,8 @@ const styles = StyleSheet.create({
     }
     , imgbanhCuon: {
         width: '100%',
+        height: 300,
+        objectFit: 'cover',
         borderRadius: 10
     }
     , Text: {
@@ -214,7 +260,7 @@ const styles = StyleSheet.create({
         color: 'black',
         marginTop: 10
     },
-    text3:{
+    text3: {
         color: 'white',
         fontSize: 15,
         fontFamily: 'Sofia Pro',
@@ -252,7 +298,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginLeft: 10,
     },
-    btnContainer:{
+    btnContainer: {
         alignItems: 'center',
         marginTop: 40
     }

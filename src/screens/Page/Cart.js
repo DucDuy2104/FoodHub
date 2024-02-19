@@ -1,18 +1,77 @@
 import { FlatList, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ItemCard from '../../components/ItemCart'
+import { AppContext } from '../../global/AppContext'
 
 const Cart = () => {
-    return (
+    const { listCart, setListCart} = useContext(AppContext)
+    const [count, setCount] = useState(0)
+    const [refreshing, setRefreshing] = useState(false)
+    const onDeleteItemPress = (id) => {
+        listCart.forEach((food, i) => {
+            if(food.id == id) {
+                listCart.splice(i, 1);
+            }
+        });
+        setListCart(listCart)
+        onRefresh()
+    }
+
+    useEffect(()=> {
+        console.log('reload')
+    }, [listCart])
+
+    const onRefresh=() => {
+        setCount(pre=> ++pre)
+        setRefreshing(false)
+    }
+
+    const getTotal =() => {
+        var total =0;
+        listCart.forEach(food => {
+            total += food.count * food.price
+        });
+
+        return total
+    }
+
+
+    const onAdd = (item, count) => {
+        listCart.forEach((e, i) => {
+            if(e.id == item.id) {
+                listCart[i].count = ++count
+            }
+        });
+        console.log("onAdd...")
+        setListCart(listCart)
+        setCount(pre=> ++pre)
+    }
+
+    const onMin = (item, count) => {
+        if(count > 1) {
+            --count;
+            listCart.forEach((e, i)=> {
+                if(item.id == e.id) {
+                    listCart[i].count = count
+                }
+            })
+        }
+        console.log("onMin...")
+        setListCart(listCart)
+        setCount(pre=> ++pre)
+    }
+    
+    return listCart? (
         <View style={styles.container}>
             <View style={styles.view1}>
-                <Image style={styles.img1} source={require('../../assets/img/backbtn.png')} />
                 <Text style={[styles.text1, styles.textCenter, styles.black]}>Cart</Text>
             </View>
 
             <FlatList style={styles.flat}
-                data={lstData}
-                renderItem={({ item }) => <ItemCard dataSP={item} />}
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                data={listCart}
+                renderItem={({ item }) => <ItemCard onAdd={onAdd} onMin={onMin} onDelete={()=> onDeleteItemPress(item.id)} dataSP={item} />}
                 keyExtractor={(item) => item.id}
             />
 
@@ -28,19 +87,19 @@ const Cart = () => {
             <View style={styles.view3}>
                 <View style={styles.view4}>
                     <Text style={styles.text3}>Subtotal</Text>
-                    <Text style={[styles.text3, styles.text4]}>$27.30 <Text style={styles.text6}>USD</Text></Text>
+                    <Text style={[styles.text3, styles.text4]}>${getTotal().toFixed(2)} <Text style={styles.text6}>USD</Text></Text>
                 </View>
                 <View style={styles.view4}>
                     <Text style={styles.text3}>Tax and Fees</Text>
-                    <Text style={[styles.text3, styles.text4]}>$27.30 <Text style={styles.text6}>USD</Text></Text>
+                    <Text style={[styles.text3, styles.text4]}>${((10/100)*getTotal()).toFixed(2)} <Text style={styles.text6}>USD</Text></Text>
                 </View>
                 <View style={styles.view4}>
                     <Text style={styles.text3}>Delivery</Text>
-                    <Text style={[styles.text3, styles.text4]}>$27.30 <Text style={styles.text6}>USD</Text></Text>
+                    <Text style={[styles.text3, styles.text4]}>$5.00 <Text style={styles.text6}>USD</Text></Text>
                 </View>
                 <View style={styles.view4}>
-                    <Text style={styles.text3}>Total <Text style={styles.text5}>(5 item)</Text></Text>
-                    <Text style={[styles.text3, styles.text4]}>$27.30 <Text style={styles.text6}>USD</Text></Text>
+                    <Text style={styles.text3}>Total <Text style={styles.text5}>({listCart.length} item)</Text></Text>
+                    <Text style={[styles.text3, styles.text4]}>${((getTotal()) + (((10/100)*getTotal())) + 5).toFixed(2)} <Text style={styles.text6}>USD</Text></Text>
                 </View>
             </View>
 
@@ -48,7 +107,7 @@ const Cart = () => {
                 <Text style={styles.text7}>CHECKOUT</Text>
             </Pressable>
         </View>
-    )
+    ) : <Text>Loading...</Text>
 }
 
 export default Cart
@@ -58,13 +117,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 25
     },
     view1: {
-        flexDirection: 'row',
+        alignItems:'center'
     },
     text1: {
         fontSize: 18,
         fontWeight: '400',
         lineHeight: 80,
-        marginLeft: 90
     },
     textCenter: {
         textAlign: 'center'
