@@ -2,6 +2,7 @@ import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'reac
 import React, { useContext, useEffect, useState } from 'react'
 import signStyles from '../../styles/SignStyles'
 import { AppContext } from '../../global/AppContext';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Food_Detail = ({ navigation, route }) => {
     const [num, setNum] = useState(0);
@@ -15,7 +16,7 @@ const Food_Detail = ({ navigation, route }) => {
     console.log(listCart);
 
     const onDescrePress = () => {
-        if(num == 0) {
+        if (num == 0) {
             return
         }
 
@@ -26,11 +27,11 @@ const Food_Detail = ({ navigation, route }) => {
         var count = 0
         listCart.forEach((fo, i) => {
             console.log("onForEach...")
-            if(fo.id ==  food.id) {
+            if (fo.id == food.id) {
                 count++;
             }
         });
-        if(count == 0) {
+        if (count == 0) {
             console.log("onAddNew...")
             listCart.push(
                 {
@@ -46,85 +47,87 @@ const Food_Detail = ({ navigation, route }) => {
         setListCart(listCart)
     }
     return (
-        <View style={styles.container}>
-            <View>
-                <View style={styles.TitleContainer}>
-                    <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                        <Image style={styles.iconBack} source={require('../../assets/img/backbtn.png')} />
-                    </TouchableOpacity>
-                    <View>
-                        <Image style={styles.ImgTym} source={require('../../assets/Food_Detail/ImgTym.png')} />
-                        <Image style={styles.iconTym} source={require('../../assets/Food_Detail/iconTym.png')} />
+        <ScrollView>
+            <View style={styles.container}>
+                <View>
+                    <View style={styles.TitleContainer}>
+                        <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                            <Image style={styles.iconBack} source={require('../../assets/img/backbtn.png')} />
+                        </TouchableOpacity>
+                        <View>
+                            <Image style={styles.ImgTym} source={require('../../assets/Food_Detail/ImgTym.png')} />
+                            <Image style={styles.iconTym} source={require('../../assets/Food_Detail/iconTym.png')} />
+                        </View>
+                    </View>
+                    <View style={styles.ViewBanhCuon}>
+                        <Image style={styles.imgbanhCuon} source={{ uri: item.image }} />
                     </View>
                 </View>
-                <View style={styles.ViewBanhCuon}>
-                    <Image style={styles.imgbanhCuon} source={{ uri: item.image }} />
-                </View>
-            </View>
 
-            <View>
-                <Text style={styles.Text}>{item.name}</Text>
-            </View>
-            <View style={styles.ViewSao}>
-                <Image source={require('../../assets/Food_Detail/Sao.png')} />
-                <Text style={styles.Sao}>{item.rating}</Text>
-                <Text style={styles.Danhgia}>({item.voting}+)</Text>
-                <Text style={styles.See}>See review</Text>
-            </View>
-            <View style={styles.ViewPriceContainer}>
-                <View ><Text style={styles.ViewPrice}>${item.price}</Text></View>
-                <View style={styles.ViewCongTru}>
-                    <Pressable onPress={onDescrePress}>
-                        <Image style={styles.ImgCong} source={require('../../assets/Food_Detail/Tru.png')} />
-                    </Pressable>
-                    <Text style={styles.Soluong}>{num}</Text>
-                    <Pressable onPress={onIncrePress}>
-                        <Image style={styles.ImgTru} source={require('../../assets/Food_Detail/Cong.png')} />
-                    </Pressable>
+                <View>
+                    <Text style={styles.Text}>{item.name}</Text>
+                </View>
+                <View style={styles.ViewSao}>
+                    <Image source={require('../../assets/Food_Detail/Sao.png')} />
+                    <Text style={styles.Sao}>{item.rating}</Text>
+                    <Text style={styles.Danhgia}>({item.voting}+)</Text>
+                    <Text style={styles.See}>See review</Text>
+                </View>
+                <View style={styles.ViewPriceContainer}>
+                    <View ><Text style={styles.ViewPrice}>${item.price}</Text></View>
+                    <View style={styles.ViewCongTru}>
+                        <Pressable onPress={onDescrePress}>
+                            <Image style={styles.ImgCong} source={require('../../assets/Food_Detail/Tru.png')} />
+                        </Pressable>
+                        <Text style={styles.Soluong}>{num}</Text>
+                        <Pressable onPress={onIncrePress}>
+                            <Image style={styles.ImgTru} source={require('../../assets/Food_Detail/Cong.png')} />
+                        </Pressable>
+                    </View>
+                </View>
+                <Text style={styles.Text1}>
+                    {item.description}
+                </Text>
+                <View>
+                    <Text style={styles.Text2}>Choice of Add On</Text>
+                </View>
+                <View style={styles.ViewAdd}>
+                    <View style={styles.FoodAddContainer}>
+                        <Image style={styles.FoodAdd} source={require('../../assets/Food_Detail/Pepper.png')} />
+                        <Text style={styles.FoodAddText}>Pepper Julienned</Text>
+                    </View>
+                    <View style={styles.PriceAddContainer}>
+                        <Text style={styles.FoodAddText}>+$2.30</Text>
+                        <Image style={styles.FoodAddChoice} source={require('../../assets/Food_Detail/ChoiceCam.png')} />
+                    </View>
+                </View>
+                <View style={styles.ViewAdd}>
+                    <View style={styles.FoodAddContainer}>
+                        <Image style={styles.FoodAdd} source={require('../../assets/Food_Detail/Baby.png')} />
+                        <Text style={styles.FoodAddText}>Baby Spinach</Text>
+                    </View>
+                    <View style={styles.PriceAddContainer}>
+                        <Text style={styles.FoodAddText}>+$4.70</Text>
+                        <Image style={styles.FoodAddChoice} source={require('../../assets/Food_Detail/ChoiceCam.png')} />
+                    </View>
+                </View>
+                <View style={styles.ViewAdd}>
+                    <View style={styles.FoodAddContainer}>
+                        <Image style={styles.FoodAdd} source={require('../../assets/Food_Detail/Masroom.png')} />
+                        <Text style={styles.FoodAddText}>Masroom</Text>
+                    </View>
+                    <View style={styles.PriceAddContainer}>
+                        <Text style={styles.FoodAddText}>+$2.50</Text>
+                        <Image style={styles.FoodAddChoice} source={require('../../assets/Food_Detail/ChoiceCam.png')} />
+                    </View>
+                </View>
+                <View style={styles.btnContainer}>
+                    <TouchableOpacity onPress={() => onAddToCartPress(item)} style={signStyles.btnSignUp}>
+                        <Text style={styles.text3}>Add to cart</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
-            <Text style={styles.Text1}>
-                {item.description}
-            </Text>
-            <View>
-                <Text style={styles.Text2}>Choice of Add On</Text>
-            </View>
-            <View style={styles.ViewAdd}>
-                <View style={styles.FoodAddContainer}>
-                    <Image style={styles.FoodAdd} source={require('../../assets/Food_Detail/Pepper.png')} />
-                    <Text style={styles.FoodAddText}>Pepper Julienned</Text>
-                </View>
-                <View style={styles.PriceAddContainer}>
-                    <Text style={styles.FoodAddText}>+$2.30</Text>
-                    <Image style={styles.FoodAddChoice} source={require('../../assets/Food_Detail/ChoiceCam.png')} />
-                </View>
-            </View>
-            <View style={styles.ViewAdd}>
-                <View style={styles.FoodAddContainer}>
-                    <Image style={styles.FoodAdd} source={require('../../assets/Food_Detail/Baby.png')} />
-                    <Text style={styles.FoodAddText}>Baby Spinach</Text>
-                </View>
-                <View style={styles.PriceAddContainer}>
-                    <Text style={styles.FoodAddText}>+$4.70</Text>
-                    <Image style={styles.FoodAddChoice} source={require('../../assets/Food_Detail/ChoiceCam.png')} />
-                </View>
-            </View>
-            <View style={styles.ViewAdd}>
-                <View style={styles.FoodAddContainer}>
-                    <Image style={styles.FoodAdd} source={require('../../assets/Food_Detail/Masroom.png')} />
-                    <Text style={styles.FoodAddText}>Masroom</Text>
-                </View>
-                <View style={styles.PriceAddContainer}>
-                    <Text style={styles.FoodAddText}>+$2.50</Text>
-                    <Image style={styles.FoodAddChoice} source={require('../../assets/Food_Detail/ChoiceCam.png')} />
-                </View>
-            </View>
-            <View style={styles.btnContainer}>
-                <TouchableOpacity onPress={()=>onAddToCartPress(item)} style={signStyles.btnSignUp}>
-                    <Text style={styles.text3}>Add to cart</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+        </ScrollView>
     )
 }
 

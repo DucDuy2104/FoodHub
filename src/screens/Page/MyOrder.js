@@ -1,9 +1,32 @@
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import ItemOrder1 from '../../components/ItemOrder1'
-import ItemOrder2 from '../../components/ItemOrder2'
+import React, { useContext, useEffect, useState } from 'react'
+import OrderItem2 from '../../components/OrderItem2'
+import { AppContext } from '../../global/AppContext'
+import AxiosInstance from '../../helper/AxiosInstance'
 
 const MyOrder = () => {
+    const {curUser} = useContext(AppContext)
+    const [orders, setOrders] = useState()
+    const [count, setCount] = useState(0)
+    const [refreshing, setRefreshing] = useState(false)
+
+    const getData = async () => {
+        try {
+            const response = await AxiosInstance().get('/api/orders/' + curUser.email)
+            if(response.status) {
+                console.log('orders: ', response.data.orders)
+                setOrders(response.data.orders)
+            } 
+        } catch (error) {
+            console.log('err: ', error.message)
+        }
+    }
+
+    useEffect(()=> {
+        getData()
+    }, [count])
+
+    
     return (
         <View style={styles.container}>
             <View style={styles.view1}>
@@ -12,13 +35,14 @@ const MyOrder = () => {
                 <Image style={styles.img1} source={require('../../assets/img/myorders/img13.png')}/>
             </View>
 
-
-            <Text style={styles.text2}>Lasted Orders</Text>
-            <FlatList style={styles.flat1} data={data}
-            renderItem={({item}) => <ItemOrder2 lstSP={item} />}
-            keyExtractor={(item) => item.id}/>
+            <FlatList
+            refreshing={refreshing}
+            onRefresh={()=> {setCount(pre => ++pre)}}
+            style={styles.flat1} data={orders}
+            renderItem={({item}) => <OrderItem2 data={item} />}
+            keyExtractor={(item) => item.date}/>
         </View>
-    )
+    ) 
 }
 
 export default MyOrder

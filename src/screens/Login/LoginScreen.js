@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity, ToastAndroid } from 'react-native'
 import React, { useContext, useState } from 'react'
 import signStyles from '../../styles/SignStyles'
 import colors from '../../components/Colors'
@@ -6,22 +6,44 @@ import axios from 'axios'
 import { AppContext } from '../../global/AppContext'
 
 const LoginScreen = (props) => {
-    const { curUser, setCurUser } = useContext(AppContext)
-    const [emaitFocus, setEmailF] = useState(false)
-    const [passFocus, setPassFocus] = useState(false)
+    const { curUser, setCurUser } = useContext(AppContext);
+    const [emaitFocus, setEmailF] = useState(false);
+    const [passFocus, setPassFocus] = useState(false);
+    const [Pass, setPass] = useState("");
+    const [Email, setEmail] = useState("");
 
     const { navigation } = props;
 
     const DangNhap = () => {
         let BASE_URL = "http://10.0.2.2:3000/api/users";
-        fetch("http://192.168.0.113:3000/api/users").then(response => {
+        fetch("http://192.168.4.243:3000/api/users").then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
             return response.json();
         }).then(data => {
-            navigation.navigate("Home");
-            console.log("curUser: ",data);
+            if (Email.trim() === "" || Pass.trim() === "") {
+                ToastAndroid.show("Khong de trong email hoac password", ToastAndroid.SHORT);
+                return;
+            } else {
+                let Login = false;
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].email === Email && data[i].password === Pass) {
+                        Login = true;
+
+                        console.log("curUser: ", data[i]);
+                        setCurUser(data[i])
+                        break;
+                    }
+                }
+                if (Login) {
+                    navigation.navigate("Home");
+                    ToastAndroid.show("Đăng nhập thành công", ToastAndroid.SHORT);
+                } else {
+                    ToastAndroid.show("Sai email hoặc password", ToastAndroid.SHORT);
+                    return;
+                }
+            }
         }).catch(err => {
             console.log("Failed: " + err);
         })
@@ -41,9 +63,16 @@ const LoginScreen = (props) => {
                 onFocus={() => setEmailF(true)}
                 onBlur={() => setEmailF(false)}
                 style={[signStyles.input, { borderColor: emaitFocus ? colors.primary : 'gray' }]}
-                placeholder='E-mail' />
+                placeholder='E-mail'
+                onChangeText={(text) => setEmail(text)}
+                value={Email} />
             <Text style={signStyles.subText}>Password</Text>
-            <TextInput onFocus={() => setPassFocus(true)} onBlur={() => setPassFocus(false)} style={[signStyles.input, { borderColor: passFocus ? colors.primary : 'gray' }]} placeholder='Password' />
+            <TextInput onFocus={() => setPassFocus(true)}
+                onBlur={() => setPassFocus(false)}
+                style={[signStyles.input, { borderColor: passFocus ? colors.primary : 'gray' }]}
+                placeholder='Password'
+                onChangeText={(text) => setPass(text)}
+                value={Pass} />
             <TouchableOpacity>
                 <Image style={signStyles.eye} source={require('../../assets/img/eye.png')} />
             </TouchableOpacity>

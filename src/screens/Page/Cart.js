@@ -1,10 +1,11 @@
-import { FlatList, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
+import { FlatList, Image, Pressable, StyleSheet, Text, TextInput, View , TouchableOpacity} from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import ItemCard from '../../components/ItemCart'
 import { AppContext } from '../../global/AppContext'
+import AxiosInstance from '../../helper/AxiosInstance'
 
 const Cart = () => {
-    const { listCart, setListCart} = useContext(AppContext)
+    const { listCart, setListCart, curUser} = useContext(AppContext)
     const [count, setCount] = useState(0)
     const [refreshing, setRefreshing] = useState(false)
     const onDeleteItemPress = (id) => {
@@ -60,6 +61,30 @@ const Cart = () => {
         setListCart(listCart)
         setCount(pre=> ++pre)
     }
+
+    const onBuy = async (carts) => {
+        try {
+            const response = await AxiosInstance().post('api/orders/buy', {
+                email: curUser.email,
+                products: carts
+            })
+            if(response.status == true) {
+                console.log("message: ", response.message)
+                console.log("data: ", response.data)
+                console.log("email: ", curUser.email)
+            }
+        } catch (error) {
+            console.log("err: ", error.message)
+        }
+    }
+
+    const onCheckOut=() => {
+        if(listCart.length > 0) {
+            onBuy(listCart)
+        } else {
+            console.log('message: empty cart')
+        }
+    }
     
     return listCart? (
         <View style={styles.container}>
@@ -103,9 +128,9 @@ const Cart = () => {
                 </View>
             </View>
 
-            <Pressable style={styles.press1}>
+            <TouchableOpacity onPress={onCheckOut} style={styles.press1}>
                 <Text style={styles.text7}>CHECKOUT</Text>
-            </Pressable>
+            </TouchableOpacity>
         </View>
     ) : <Text>Loading...</Text>
 }
@@ -201,7 +226,7 @@ const styles = StyleSheet.create({
     press1: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 80,
+        marginTop: 50,
         width: 248,
         height: 57,
         borderRadius: 30,
