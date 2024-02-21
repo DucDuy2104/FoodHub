@@ -3,15 +3,31 @@ import React, { useContext, useEffect, useState } from 'react'
 import signStyles from '../../styles/SignStyles'
 import { AppContext } from '../../global/AppContext';
 import { ScrollView } from 'react-native-gesture-handler';
+import AxiosInstance from '../../helper/AxiosInstance';
 
 const Food_Detail = ({ navigation, route }) => {
     const [num, setNum] = useState(0);
     const { item } = route.params
-    const { setListCart, listCart } = useContext(AppContext)
+    const { setListCart, listCart, curUser } = useContext(AppContext)
+    const [ favor, setFavor] = useState(false)
     const onIncrePress = () => {
         setNum(pre => ++pre)
     }
 
+    const onFavor = async (item) => {
+        try {
+            const response = await AxiosInstance().post('/api/favors/like', {
+                email: curUser.email,
+                item: item
+            })
+
+            if(response.status) {
+                setFavor(true)
+            }
+        } catch (error) {
+            console.log('err: ', error.message)
+        }
+    }
 
     console.log(listCart);
 
@@ -46,6 +62,10 @@ const Food_Detail = ({ navigation, route }) => {
         }
         setListCart(listCart)
     }
+
+    const onHeartPress = ()=> {
+        onFavor(item)
+    }
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -54,10 +74,14 @@ const Food_Detail = ({ navigation, route }) => {
                         <TouchableOpacity onPress={() => { navigation.goBack() }}>
                             <Image style={styles.iconBack} source={require('../../assets/img/backbtn.png')} />
                         </TouchableOpacity>
-                        <View>
+                        {favor? 
+                            <TouchableOpacity>
                             <Image style={styles.ImgTym} source={require('../../assets/Food_Detail/ImgTym.png')} />
                             <Image style={styles.iconTym} source={require('../../assets/Food_Detail/iconTym.png')} />
-                        </View>
+                        </TouchableOpacity> : <TouchableOpacity onPress={onHeartPress}>
+                            <Image style={{width: 20, height: 20, margin: 10}} source={require('../../assets/img/favor.png')}/>
+                        </TouchableOpacity>
+                        }
                     </View>
                     <View style={styles.ViewBanhCuon}>
                         <Image style={styles.imgbanhCuon} source={{ uri: item.image }} />

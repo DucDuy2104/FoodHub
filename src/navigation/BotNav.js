@@ -5,7 +5,7 @@ import MyOrder from '../screens/Page/MyOrder';
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import FavoriteScreen from '../screens/Page/FavoriteScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +22,7 @@ const BotNav = () => {
               tabBarLabel: () => null,
               tabBarIcon: ({ focused }) => <Image style={{ width: 20, height: 20}} source={focused ? require('../assets/img/navigation/bagS.png') : require('../assets/img/navigation/bag.png')} />
             }} />
-          <Tab.Screen name='Food_Detail' component={Profiles}
+          <Tab.Screen name='Favor' component={FavoriteScreen}
             options={{
               tabBarLabel: () => null,
               tabBarIcon: ({ focused }) => <Image style={{ width: 20, height: 20}} source={focused ? require('../assets/img/navigation/icons8-heart-40.png') : require('../assets/img/navigation/heart.png')} />

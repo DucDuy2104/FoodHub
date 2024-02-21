@@ -15,8 +15,7 @@ const LoginScreen = (props) => {
     const { navigation } = props;
 
     const DangNhap = () => {
-        let BASE_URL = "http://10.0.2.2:3000/api/users";
-        fetch("http://192.168.4.243:3000/api/users").then(response => {
+        fetch("http://192.168.45.243:3000/api/users").then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
