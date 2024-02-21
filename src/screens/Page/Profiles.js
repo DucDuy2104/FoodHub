@@ -22,9 +22,9 @@ const Profiles = (props) => {
       fullName: fullName,
       phoneNumber: phoneNumber,
     };
-  
+
     fetch(`http://192.168.1.68:3000/api/users/update`, {
-      method: 'PUT', 
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -39,8 +39,29 @@ const Profiles = (props) => {
       .catch(error => {
         console.error('Error updating:', error);
         Alert.alert('Error', 'Failed to update');
+        if (data.success) {
+          pushDataToAPI(userData);
+        }
       });
-};
+  };
+
+  const pushDataToAPI = (userData) => {
+    // Gửi dữ liệu userData lên API khác ở đây
+    fetch(`http://192.168.1.68:3000/api/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Push thành công hahaha:', data);
+      })
+      .catch(error => {
+        console.error('Lỗi rồi nè', error);
+      });
+  };
 
   return (
     <View>
