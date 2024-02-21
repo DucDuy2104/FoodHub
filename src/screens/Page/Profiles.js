@@ -1,20 +1,55 @@
-import { Image, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useState } from 'react'
-import signStyles from '../../styles/SignStyles'
-import colors from '../../components/Colors'
+import { Alert, Image, ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { AppContext } from '../../global/AppContext';
 
-const Profiles = () => {
+const Profiles = (props) => {
+  const { navigation } = props;
+  const { curUser, setCurUser } = useContext(AppContext);
+
+  const Mail = curUser.email;
 
   const [nameFocus, setnameFocus] = useState(false);
   const [emaitFocus, setEmailF] = useState(false)
   const [phoneFocus, setphoneFocus] = useState(false)
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  const handleUpdateProfile = () => {
+    const userData = {
+      currentEmail: Mail,
+      newEmail: email,
+      fullName: fullName,
+      phoneNumber: phoneNumber,
+    };
+  
+    fetch(`http://192.168.1.68:3000/api/users/update`, {
+      method: 'PUT', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(Mail);
+        console.log(data);
+        Alert.alert('Success', 'Update success');
+      })
+      .catch(error => {
+        console.error('Error updating:', error);
+        Alert.alert('Error', 'Failed to update');
+      });
+};
 
   return (
     <View>
       <ImageBackground source={require('../../assets/img/bgprofile.png')}
         style={styles.imgBG}>
-        <Image source={require('../../assets/img/grback.png')}
-          style={styles.img1} />
+        <Pressable onPress={() => navigation.goBack()}>
+          <Image source={require('../../assets/img/grback.png')}
+            style={styles.img1} />
+        </Pressable>
       </ImageBackground>
 
       <ImageBackground
@@ -36,6 +71,7 @@ const Profiles = () => {
           <TextInput
             onFocus={() => setnameFocus(true)}
             onBlur={() => setnameFocus(false)}
+            onChangeText={(text) => setFullName(text)}
             style={[styles.input1,
             { borderColor: nameFocus ? '#FE724C' : '#eee' }]}
             placeholderTextColor={'#ccc'} placeholder='Input your name'
@@ -45,6 +81,7 @@ const Profiles = () => {
           <TextInput placeholderTextColor={'#ccc'} placeholder='Input your email'
             onFocus={() => setEmailF(true)}
             onBlur={() => setEmailF(false)}
+            onChangeText={(text) => setEmail(text)}
             style={[styles.input1,
             { borderColor: emaitFocus ? '#FE724C' : '#eee' }]} />
 
@@ -52,9 +89,16 @@ const Profiles = () => {
           <TextInput placeholderTextColor={'#ccc'} placeholder='Input your phone number'
             onFocus={() => setphoneFocus(true)}
             onBlur={() => setphoneFocus(false)}
+            onChangeText={(text) => setPhoneNumber(text)}
             style={[styles.input1,
             { borderColor: phoneFocus ? '#FE724C' : '#eee' }]}
             keyboardType='number-pad' />
+
+          <Pressable onPress={() => handleUpdateProfile()}
+            style={{ backgroundColor: 'orange', paddingHorizontal: 100, paddingVertical: 15, marginTop: 10, marginHorizontal: 20, borderRadius: 20 }}>
+            <Text style={{ fontSize: 20, color: '#FFF', textAlign: 'center', fontWeight: 'bold' }}>Save</Text>
+          </Pressable>
+
         </View>
       </View>
     </View>

@@ -5,14 +5,14 @@ import ItemHome1 from '../../components/ItemHome1'
 import ItemHome2 from '../../components/ItemHome2'
 import AxiosInstance from '../../helper/AxiosInstance'
 
-const HomeScreens = ({navigation}) => {
+const HomeScreens = ({ navigation }) => {
     const [listsp, setListSp] = useState();
 
     const getAllProducts = async () => {
         try {
             console.log('on get Pro')
             const response = await AxiosInstance().get('/api/products');
-            if(response) {
+            if (response) {
                 console.log('response', response);
                 setListSp(response)
             } else {
@@ -23,7 +23,7 @@ const HomeScreens = ({navigation}) => {
         }
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         getAllProducts()
     }, [])
 
@@ -33,7 +33,7 @@ const HomeScreens = ({navigation}) => {
         })
     }
 
-    return listsp? (
+    return listsp ? (
         <View style={styles.container}>
             <View style={[styles.view1, styles.row]}>
                 <Pressable onPress={() => openDrawer()}>
@@ -43,7 +43,9 @@ const HomeScreens = ({navigation}) => {
                     <HomeDropDown />
                     <Text style={styles.text1}>4102 Pretty View Lane</Text>
                 </View>
-                <Image style={styles.img2} source={require('../../assets/img/home/avatarr.png')} />
+                <Pressable onPress={() => navigation.navigate("Profiles")}>
+                    <Image style={styles.img2} source={require('../../assets/img/home/avatarr.png')} />
+                </Pressable>
             </View>
 
             <ScrollView>
@@ -115,12 +117,12 @@ const HomeScreens = ({navigation}) => {
                 <Text style={[styles.text5, styles.text7]}>Popular Items</Text>
                 <FlatList horizontal={true}
                     data={listsp}
-                    renderItem={({ item }) => <ItemHome2 onItemLick={()=>onItemLick(item)} item={item} />}
+                    renderItem={({ item }) => <ItemHome2 onItemLick={() => onItemLick(item)} item={item} />}
                     keyExtractor={(item) => item.id}
                     style={[styles.flat2]} />
             </ScrollView>
         </View>
-        
+
     ) : <Text>Loading...</Text>
 }
 
