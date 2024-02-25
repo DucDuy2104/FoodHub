@@ -6,12 +6,13 @@ import { AppProvider } from './src/global/AppContext'
 import OrderItem from './src/components/OrderItem'
 import { SafeAreaView } from 'react-native'
 import FavoriteScreen from './src/screens/Page/FavoriteScreen'
-
+import SignUpScreen from './src/screens/Login/SignUpScreen'
 const App = () => {
   return (
     <AppProvider>
       <NavigationContainer>
         <Stacks />
+        {/* <SignUpScreen /> */}
       </NavigationContainer>
     </AppProvider>
   )

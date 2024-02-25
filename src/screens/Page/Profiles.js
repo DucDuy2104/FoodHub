@@ -47,7 +47,7 @@ const Profiles = (props) => {
 
   const pushDataToAPI = (userData) => {
     // Gửi dữ liệu userData lên API khác ở đây
-    fetch(`http://192.168.1.68:3000/api/users`, {
+    fetch(`http://192.168.1.10:3000/api/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
